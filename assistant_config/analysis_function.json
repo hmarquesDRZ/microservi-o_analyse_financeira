@@ -1,0 +1,524 @@
+{
+  "$defs": {
+    "BarGroupedChart": {
+      "properties": {
+        "section": {
+          "title": "Section",
+          "type": "string"
+        },
+        "chart_type": {
+          "Literal": true,
+          "default": "bar_grouped",
+          "title": "Chart Type",
+          "type": "string"
+        },
+        "labels": {
+          "description": "Labels for the bars/groups.",
+          "items": {
+            "type": "string"
+          },
+          "title": "Labels",
+          "type": "array"
+        },
+        "values_1": {
+          "description": "First set of values for the bars.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Values 1",
+          "type": "array"
+        },
+        "values_2": {
+          "anyOf": [
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Second set of values for grouped bars (optional).",
+          "title": "Values 2"
+        },
+        "legend": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Legend labels if multiple value sets are used (e.g., ['Orçado', 'Pago']).",
+          "title": "Legend"
+        }
+      },
+      "required": [
+        "section",
+        "labels",
+        "values_1"
+      ],
+      "title": "BarGroupedChart",
+      "type": "object"
+    },
+    "BarStackedChart": {
+      "properties": {
+        "section": {
+          "title": "Section",
+          "type": "string"
+        },
+        "chart_type": {
+          "Literal": true,
+          "default": "bar_stacked",
+          "title": "Chart Type",
+          "type": "string"
+        },
+        "labels": {
+          "description": "Labels for the bars.",
+          "items": {
+            "type": "string"
+          },
+          "title": "Labels",
+          "type": "array"
+        },
+        "values_1": {
+          "description": "Values for the first stack layer.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Values 1",
+          "type": "array"
+        },
+        "values_2": {
+          "description": "Values for the second stack layer.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Values 2",
+          "type": "array"
+        },
+        "legend": {
+          "description": "Legend labels for the stack layers (e.g., ['Orçado', 'Pago']).",
+          "items": {
+            "type": "string"
+          },
+          "title": "Legend",
+          "type": "array"
+        }
+      },
+      "required": [
+        "section",
+        "labels",
+        "values_1",
+        "values_2",
+        "legend"
+      ],
+      "title": "BarStackedChart",
+      "type": "object"
+    },
+    "FinancialAnalysisSubsections": {
+      "properties": {
+        "1.1": {
+          "$ref": "#/$defs/ReportSection",
+          "description": "Analysis of Revenue vs Expenses."
+        },
+        "1.2": {
+          "$ref": "#/$defs/ReportSection",
+          "description": "Analysis of Main Revenue Sources."
+        },
+        "1.3": {
+          "$ref": "#/$defs/ReportSection",
+          "description": "Analysis of High-Execution Areas (>= 70%)."
+        },
+        "1.4": {
+          "$ref": "#/$defs/ReportSection",
+          "description": "Analysis of Low-Execution Areas (<= 30%)."
+        }
+      },
+      "required": [
+        "1.1",
+        "1.2",
+        "1.3",
+        "1.4"
+      ],
+      "title": "FinancialAnalysisSubsections",
+      "type": "object"
+    },
+    "HeatmapChart": {
+      "properties": {
+        "section": {
+          "title": "Section",
+          "type": "string"
+        },
+        "chart_type": {
+          "Literal": true,
+          "default": "heatmap",
+          "title": "Chart Type",
+          "type": "string"
+        },
+        "rows": {
+          "description": "Row labels for the heatmap.",
+          "items": {
+            "type": "string"
+          },
+          "title": "Rows",
+          "type": "array"
+        },
+        "columns": {
+          "description": "Column labels for the heatmap.",
+          "items": {
+            "type": "string"
+          },
+          "title": "Columns",
+          "type": "array"
+        },
+        "values": {
+          "description": "Heatmap cell values (list of lists).",
+          "items": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "section",
+        "rows",
+        "columns",
+        "values"
+      ],
+      "title": "HeatmapChart",
+      "type": "object"
+    },
+    "LineChart": {
+      "properties": {
+        "section": {
+          "title": "Section",
+          "type": "string"
+        },
+        "chart_type": {
+          "Literal": true,
+          "default": "line",
+          "title": "Chart Type",
+          "type": "string"
+        },
+        "x": {
+          "description": "X-axis values (e.g., years).",
+          "items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "title": "X",
+          "type": "array"
+        },
+        "y": {
+          "description": "Y-axis values.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Y",
+          "type": "array"
+        },
+        "label": {
+          "description": "Label for the line.",
+          "title": "Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "section",
+        "x",
+        "y",
+        "label"
+      ],
+      "title": "LineChart",
+      "type": "object"
+    },
+    "PieChart": {
+      "properties": {
+        "section": {
+          "title": "Section",
+          "type": "string"
+        },
+        "chart_type": {
+          "Literal": true,
+          "default": "pie",
+          "title": "Chart Type",
+          "type": "string"
+        },
+        "labels": {
+          "description": "Labels for the pie slices.",
+          "items": {
+            "type": "string"
+          },
+          "title": "Labels",
+          "type": "array"
+        },
+        "values": {
+          "description": "Values for the pie slices.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "section",
+        "labels",
+        "values"
+      ],
+      "title": "PieChart",
+      "type": "object"
+    },
+    "ProjectionsRecommendationsSubsections": {
+      "properties": {
+        "3.1": {
+          "$ref": "#/$defs/ReportSection",
+          "description": "Projections Discussion."
+        },
+        "3.2": {
+          "$ref": "#/$defs/ReportSection",
+          "description": "Recommendations List (Text Only)."
+        }
+      },
+      "required": [
+        "3.1",
+        "3.2"
+      ],
+      "title": "ProjectionsRecommendationsSubsections",
+      "type": "object"
+    },
+    "ReportSection": {
+      "description": "Represents a main section of the analysis text.",
+      "properties": {
+        "text": {
+          "description": "The textual analysis for this section.",
+          "title": "Text",
+          "type": "string"
+        },
+        "chart_data": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BarGroupedChart"
+            },
+            {
+              "$ref": "#/$defs/PieChart"
+            },
+            {
+              "$ref": "#/$defs/BarStackedChart"
+            },
+            {
+              "$ref": "#/$defs/HeatmapChart"
+            },
+            {
+              "$ref": "#/$defs/LineChart"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Data required to render the chart for this section, if applicable.",
+          "title": "Chart Data"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "ReportSection",
+      "type": "object"
+    }
+  },
+  "description": "Structured financial analysis report including text and chart data.",
+  "examples": [
+    {
+      "analise_financeira": {
+        "1.1": {
+          "chart_data": {
+            "chart_type": "bar_grouped",
+            "labels": [
+              "Receita orçada",
+              "Despesas empenhadas",
+              "Despesas liquidadas",
+              "Despesas pagas"
+            ],
+            "section": "1.1",
+            "values_1": [
+              10000000.0,
+              9500000.0,
+              9000000.0,
+              8800000.0
+            ]
+          },
+          "text": "A receita total orçada foi de R$ 10.000.000,00. As despesas empenhadas somaram R$ 9.500.000,00 (95,0% do orçado), as liquidadas R$ 9.000.000,00 (90,0%) e as pagas R$ 8.800.000,00 (88,0%)."
+        },
+        "1.2": {
+          "chart_data": {
+            "chart_type": "pie",
+            "labels": [
+              "IPTU",
+              "ISS",
+              "FPM",
+              "ICMS"
+            ],
+            "section": "1.2",
+            "values": [
+              3000000.0,
+              2500000.0,
+              2000000.0,
+              1500000.0
+            ]
+          },
+          "text": "As principais fontes foram IPTU (R$ 3M pagos / 98% exec), ISS (R$ 2.5M / 95%), FPM (R$ 2M / 100%) e ICMS (R$ 1.5M / 90%)."
+        },
+        "1.3": {
+          "chart_data": null,
+          "text": "Educação (95%), Saúde (92%), Urbanismo (88%) tiveram alta execução."
+        },
+        "1.4": {
+          "chart_data": null,
+          "text": "Cultura (25%), Esporte (20%), Meio Ambiente (15%) tiveram baixa execução."
+        }
+      },
+      "avaliacao_riscos": {
+        "chart_data": null,
+        "text": "Riscos Financeiros: ... Riscos Operacionais: ... Riscos Externos: ..."
+      },
+      "conclusao": {
+        "chart_data": null,
+        "text": "O município apresenta boa execução orçamentária geral, mas precisa diversificar receitas e melhorar a execução em áreas de menor desempenho."
+      },
+      "exercicio_ano": 2023,
+      "fonte_pdf_nome": "orcamento_2023.csv",
+      "municipio_nome": "Exemploville",
+      "projecoes_recomendacoes": {
+        "3.1": {
+          "chart_data": null,
+          "text": "Projeta-se crescimento de 3% na receita..."
+        },
+        "3.2": {
+          "chart_data": null,
+          "text": "1. Diversificar Receitas... 2. Fortalecer Controles..."
+        }
+      }
+    }
+  ],
+  "properties": {
+    "municipio_nome": {
+      "description": "Name of the municipality.",
+      "title": "Municipio Nome",
+      "type": "string"
+    },
+    "exercicio_ano": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "description": "The fiscal year of the analysis.",
+      "title": "Exercicio Ano"
+    },
+    "fonte_pdf_nome": {
+      "description": "Filename of the source PDF/CSV provided.",
+      "title": "Fonte Pdf Nome",
+      "type": "string"
+    },
+    "analise_financeira": {
+      "$ref": "#/$defs/FinancialAnalysisSubsections",
+      "description": "Section 1: Financial Analysis"
+    },
+    "avaliacao_riscos": {
+      "$ref": "#/$defs/ReportSection",
+      "description": "Section 2: Risk Assessment"
+    },
+    "projecoes_recomendacoes": {
+      "$ref": "#/$defs/ProjectionsRecommendationsSubsections",
+      "description": "Section 3: Projections and Recommendations"
+    },
+    "conclusao": {
+      "$ref": "#/$defs/ReportSection",
+      "description": "Section 4: Conclusion"
+    }
+  },
+  "required": [
+    "municipio_nome",
+    "exercicio_ano",
+    "fonte_pdf_nome",
+    "analise_financeira",
+    "avaliacao_riscos",
+    "projecoes_recomendacoes",
+    "conclusao"
+  ],
+  "title": "AnalysisResponse",
+  "type": "object"
+}
